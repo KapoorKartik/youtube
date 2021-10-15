@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        #videos {
+            display : grid;
+            grid-template-columns: 20% 20% 20% 20%;
+            grid-gap: 5%;
+
+        }
+        /* #videos > div {
+            width  : 100px;
+        } */
+        body {
+            background  : rgb(22, 21, 21);
+            color: white;
+        }
+        #query {
+            /* border: 1px solid black; */
+        }
+        button {
+            background: transparent;
+            border: none;
+        }
+        #nav_bar {
+            border  : 1px solid white;
+        }
+    </style>
+  </head>
+  <body>
+      <div id="nav_bar">
+          <div id="menu">
+            <img src="https://img.icons8.com/material-outlined/25/FFFFFF/menu--v1.png"/>
+          </div>
+          <div id="logo">
+            <img src="https://img.icons8.com/external-prettycons-flat-prettycons/50/ffffff/external-youtube-multimedia-prettycons-flat-prettycons.png"/>
+            <div>YouTube</div>
+          </div>
+          <div id="input_box">
+            <input type="text" id="query" placeholder="Search for a Video" />
+            <button onclick="searchVideos()">
+                <img src="https://img.icons8.com/material-rounded/24/ffffff/search.png"/>
+            </button>
+          </div>
+          <div id="mic">
+            <img src="https://img.icons8.com/material-rounded/50/ffffff/microphone.png"/>
+          </div>
+          <div id="video">
+            <img src="https://img.icons8.com/material-outlined/50/ffffff/video-call.png"/>
+          </div>
+          <div id="apps">
+            <img src="https://img.icons8.com/material-outlined/50/ffffff/circled-menu.png"/>
+          </div>
+          <div id="bell">
+            <img src="https://img.icons8.com/ios/50/ffffff/appointment-reminders--v1.png"/>
+          </div>
+          <div id="sign_in">
+            <img src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/4a90e2/external-user-interface-kiranshastry-lineal-kiranshastry.png"/>
+            Sign In
+          </div>
+      </div>
+  
+
+    <div id="videos"></div>
+  </body>
+</html>
+
+<script>
+    // key : AIzaSyDvpVvmbWZD3JlJBpKUM6ip4ck2miZ6v-I
+    // https://youtube.googleapis.com/youtube/v3/search?q=csk&type=video&key=[YOUR_API_KEY]
+
+
+
+    let videos = document.getElementById('videos')
+
+    async function searchVideos(){
+
+        /*q = csk or input value
+
+        */
+let query = document.getElementById('query').value
+
+        let res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?q=${query}&type=video&key=AIzaSyBLAmZDlu7QuyhfYkjpM8WjRWOy0ljdk6I&maxResults=4` )
+        let data = await res.json()
+        console.log(data)
+        appendVideos(data.items)
+    }
+
+
+    function appendVideos(vid){
+// destructure nested obj look like this : {prop:{prop1 inside prop}}
+videos.innerHTML = null
+        vid.forEach(({id:{videoId}}) => {
+            console.log(videoId)
+
+
+            let div = document.createElement('div')
+
+            // embed youtube video
+            div.innerHTML = `<iframe width="250" height="250" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+div.style.marginTop = '20px'
+videos.append(div)
+
+        })
+
+    }
+
+</script>
