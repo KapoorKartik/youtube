@@ -182,10 +182,41 @@ videos.append(div)
         })
 
     }
+
+function  showTrendings(){
+  fetch("https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=IN&key=AIzaSyAajP1_w1HjEXkwQrcbEcArx3d_B6lJQxA")
+  .then((res)=>{
+    return res.json()
+  })
+  .then (({items})=>{
+    items.forEach(({id , snippet : {title}}) =>{
+      console.log(id ,title)
+
+let div = document.createElement('div')
+div.style.marginLeft = '20px'
+      let v = document.createElement('div')
+      let Title = document.createElement('div')
+
+// embed youtube video
+v.innerHTML = `<iframe width="250" height="250" src="https://www.youtube.com/embed/${id}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+Title.innerHTML = title
+div.append(v,Title)
+videos.append(div)
+
+
+    })
+    console.log(items)
+  })
+}
+ showTrendings()
 /*
-home <img src="https://img.icons8.com/fluency-systems-filled/48/ffffff/home.png"/>
-compass <img src="https://img.icons8.com/material-outlined/24/ffffff/compass.png"/>
-subscribe <img src="https://img.icons8.com/material-outlined/24/ffffff/video.png"/>
+GET https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=IN&key=[YOUR_API_KEY] HTTP/1.1
+
+Authorization: Bearer [YOUR_ACCESS_TOKEN]
+Accept: application/json
+
+https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=IN&key=AIzaSyAajP1_w1HjEXkwQrcbEcArx3d_B6lJQxA HTTP/1.1
+
 
 */
 </script>
