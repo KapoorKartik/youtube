@@ -10,6 +10,7 @@
             display : grid;
             grid-template-columns: 20% 20% 20% 20%;
             grid-gap: 5%;
+            background : black;
         }
         /* #videos > div {
             width  : 100px;
@@ -40,10 +41,11 @@
             display: grid;
             grid-template-columns: 5% 18% 43% 15% 3% 3% 3% 9%;
         }
+        /*
         #nav_bar > div ,span{
-          /* border  : 1px solid green; */
+          /* border  : 1px solid green; 
           
-        }
+        }*/
         span {
           font-size : 23px;
         }
@@ -52,16 +54,23 @@
         }
         #body {
           display :grid ;
-          grid-template-columns: 13% 85%;
+          grid-template-columns: 8% 85%;
           grid-gap : 2%;
+          margin-top : 10px;
         }
-        #body > div {
-          border: 1px solid red;
+        
+        #side_bar > div {
+          margin-bottom: 20px;
+          margin-top : 5px;
+          text-align : center;
         }
-        #side_bar {
-
+        .fonts {
+          font-size : 12px;
+         
         }
     </style>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+  rel="stylesheet">
   </head>
   <body>
       <div id="nav_bar">
@@ -100,17 +109,45 @@
   
 
    <div id="body">
-     <div id="side_bar"></div>
+     <div id="side_bar">
+      <div>
+        <div class="material-icons-outlined">
+          home
+          </div>
+            <div class="fonts">Home</div>
+      </div>
+      <div>
+        <div class="material-icons-outlined">
+          explore
+          </div>
+          <div class="fonts">Explore</div>
+      </div>
+      <div>
+        <div class="material-icons-outlined">
+          subscriptions
+          </div>
+          <div class="fonts">Subscriptions</div>
+      </div>
+      <div>
+
+        <div class="material-icons-outlined">
+          video_library
+          </div>
+          <div class="fonts">Library</div>
+
+      </div>
+     </div>
+     
      <div id="videos"></div>
    </div>
   </body>
 </html>
 
 <script>
-    // key : AIzaSyDvpVvmbWZD3JlJBpKUM6ip4ck2miZ6v-I
+    // new key : AIzaSyAajP1_w1HjEXkwQrcbEcArx3d_B6lJQxA
     // https://youtube.googleapis.com/youtube/v3/search?q=csk&type=video&key=[YOUR_API_KEY]
 
-
+const key = "AIzaSyAajP1_w1HjEXkwQrcbEcArx3d_B6lJQxA"
 
     let videos = document.getElementById('videos')
 
@@ -121,7 +158,7 @@
         */
 let query = document.getElementById('query').value
 
-        let res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?q=${query}&type=video&key=AIzaSyBLAmZDlu7QuyhfYkjpM8WjRWOy0ljdk6I&maxResults=20` )
+        let res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?q=${query}&type=video&key=${key}&maxResults=20` )
         let data = await res.json()
         console.log(data)
         appendVideos(data.items)
@@ -145,5 +182,10 @@ videos.append(div)
         })
 
     }
+/*
+home <img src="https://img.icons8.com/fluency-systems-filled/48/ffffff/home.png"/>
+compass <img src="https://img.icons8.com/material-outlined/24/ffffff/compass.png"/>
+subscribe <img src="https://img.icons8.com/material-outlined/24/ffffff/video.png"/>
 
+*/
 </script>
